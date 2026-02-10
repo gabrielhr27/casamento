@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Presentes | Erika & Gabriel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Cormorant Garamond', serif;
+  background:url('fundolimpo1.png') center/cover no-repeat fixed;
+  color:#4b2c2c;
+}
+
+.menu-topo{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  background:#7b1e1e;
+  padding:12px 0;
+  z-index:9999;
+  text-align:center;
+  font-family:'Cinzel', serif;
+  letter-spacing:2px;
+}
+.menu-topo a{
+  color:#fff;
+  text-decoration:none;
+  margin:0 14px;
+  font-size:13px;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:110px 20px 40px;
+  text-align:center;
+}
+
+.titulo{
+  font-family:'Cinzel', serif;
+  font-size:34px;
+  margin-bottom:20px;
+}
+
+.cards{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:25px;
+}
+
+.card{
+  width:230px;
+  background:white;
+  border-radius:18px;
+  padding:15px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.15);
+}
+
+.card img{
+  width:100%;
+  height:160px;
+  object-fit:cover;
+  border-radius:12px;
+  margin-bottom:10px;
+}
+
+.card h3{
+  font-family:'Cinzel', serif;
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.valor{ font-weight:bold; margin-bottom:6px; font-size:25px; }
+
+button{
+  background:#7b1e1e;
+  color:white;
+  border:none;
+  padding:10px 15px;
+  border-radius:20px;
+  font-family:'Cinzel', serif;
+  cursor:pointer;
+}
+
+/* 🛒 Carrinho */
+.carrinho{
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:280px;
+  background:white;
+  border-radius:18px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.2);
+  padding:15px;
+  z-index:9999;
+}
+
+.carrinho h3{
+  font-family:'Cinzel', serif;
+  margin-bottom:10px;
+  font-size:16px;
+}
+
+.carrinho ul{
+  list-style:none;
+  max-height:180px;
+  overflow:auto;
+  margin-bottom:10px;
+}
+
+.carrinho li{
+  font-size:14px;
+  margin-bottom:6px;
+  display:flex;
+  justify-content:space-between;
+}
+.total{
+  font-weight:bold;
+  margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-topo">
+  <a href="index.html">INÍCIO</a>
+  <a href="presenca.html">PRESENÇA</a>
+  <a href="presente.html">PRESENTES</a>
+  <a href="local.html">LOCAL</a>
+</div>
+
+<div class="container">
+  <div class="titulo">Lista de Presentes</div>
+  <div class="cards" id="lista"></div>
+</div>
+
+<!-- 🛒 Carrinho -->
+<div class="carrinho">
+  <h3>Seus Presentes</h3>
+  <ul id="itensCarrinho"></ul>
+  <div class="total">Total: R$ <span id="total">0</span></div>
+  <button onclick="finalizar()">Finalizar presentes</button>
+</div>
+
+<script>
+const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbza8uSc-2oi2VjR1G0HwVZN_tumCRmSbY37OmUw2Zqt3oQapdDWXvr2e0dotSc6cBYS/exec";
+
+let carrinho = [];
+
+function carregar(){
+  fetch(URL_SCRIPT)
+    .then(r=>r.json())
+    .then(dados=>{
+      const lista = document.getElementById('lista');
+
+      dados.forEach(item=>{
+        const card = document.createElement('div');
+        card.className = 'card';
+
+        card.innerHTML = `
+          <img src="${item.imagem}">
+          <h3>${item.presente}</h3>
+          <div class="valor">R$ ${item.valor}</div>
+          <button onclick="adicionar(${item.id}, '${item.presente}', ${item.valor})">Adicionar</button>
+        `;
+
+        lista.appendChild(card);
+      });
+    });
+}
+
+function adicionar(id, nome, valor){
+  carrinho.push({id, nome, valor});
+  atualizarCarrinho();
+}
+
+function remover(i){
+  carrinho.splice(i,1);
+  atualizarCarrinho();
+}
+
+function atualizarCarrinho(){
+  const ul = document.getElementById('itensCarrinho');
+  ul.innerHTML = "";
+  let total = 0;
+
+  carrinho.forEach((p,i)=>{
+    total += p.valor;
+    ul.innerHTML += `
+      <li>
+        ${p.nome}
+        <span onclick="remover(${i})" style="cursor:pointer;color:red">x</span>
+      </li>`;
+  });
+
+  document.getElementById('total').innerText = total.toFixed(2);
+}
+
+function finalizar(){
+  if(carrinho.length == 0){
+    alert("Selecione pelo menos um presente.");
+    return;
+  }
+
+  fetch(URL_SCRIPT, {
+    method:"POST",
+    body: JSON.stringify({ presentes: carrinho })
+  })
+  .then(r=>r.json())
+  .then(d=>{
+    window.location.href = d.link;
+  });
+}
+
+carregar();
+</script>
+
+</body>
+</html>

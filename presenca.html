@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmar Presença</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+    font-family:'Cormorant Garamond', serif;
+    background:url('fundolimpo1.png') center/cover no-repeat fixed;
+    color:#4b2c2c;
+}
+
+/* MENU */
+.menu-topo{
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    background:#7b1e1e;
+    padding:12px 0;
+    z-index:9999;
+    text-align:center;
+    font-family:'Cinzel', serif;
+    letter-spacing:2px;
+}
+.menu-topo a{
+    color:#fff;
+    text-decoration:none;
+    margin:0 14px;
+    font-size:13px;
+}
+
+/* CONTEÚDO */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:110px 20px 40px;
+    text-align:center;
+}
+
+.titulo{
+    font-family:'Cinzel', serif;
+    font-size:34px;
+    margin-bottom:20px;
+}
+
+.texto{
+    font-size:20px;
+    line-height:1.6;
+    max-width:700px;
+    margin:auto;
+    text-align:left;
+}
+
+form{
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+label{font-weight:500;}
+
+input,select{
+    width:100%;
+    padding:12px;
+    font-size:18px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+button{
+    margin-top:10px;
+    background:#1f3a1f;
+    color:white;
+    padding:14px;
+    border:none;
+    border-radius:30px;
+    font-family:'Cinzel', serif;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* mini janela de agradecimento */
+#miniJanela{
+    display:none;
+    margin-top:30px;
+    background:rgba(255,255,255,0.95);
+    border-radius:18px;
+    padding:25px 20px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.2);
+    max-width:400px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
+    animation:fadeInUp 0.5s ease;
+}
+
+#miniJanela h2{
+    font-family:'Cinzel', serif;
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+#miniJanela p{
+    font-size:18px;
+    line-height:1.4;
+    margin-bottom:20px;
+}
+
+.btn-presente{
+    display:inline-block;
+    background:#7b1e1e;
+    color:white;
+    padding:12px 25px;
+    border-radius:30px;
+    font-family:'Cinzel', serif;
+    text-decoration:none;
+    font-size:16px;
+}
+
+/* campos dinâmicos */
+#contador{
+    font-size:15px;
+    font-style:italic;
+    color:#4b2c2c;
+}
+
+.dinamico{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    opacity:0;
+    transform:translateY(-10px);
+    transition:.4s;
+}
+.dinamico.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* animação */
+@keyframes fadeInUp{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-topo">
+    <a href="index.html">INÍCIO</a>
+    <a href="presenca.html">PRESENÇA</a>
+    <a href="presente.html">PRESENTES</a>
+    <a href="local.html">LOCAL</a>
+</div>
+
+<div class="container">
+    <div class="titulo">Confirmar Presença</div>
+
+    <div class="texto">
+        <form id="formPresenca">
+
+            <label>Número de pessoas</label>
+            <select id="numPessoas" required>
+                <option value="">Selecione</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+      </select>
+
+            <div id="contador"></div>
+            <div id="camposPessoas"></div>
+
+            <label>WhatsApp</label>
+            <input type="tel" id="whatsapp" required>
+
+            <label>Email</label>
+            <input type="email" id="email" required>
+
+            <button type="submit">Enviar Confirmação</button>
+        </form>
+
+        <div id="miniJanela">
+            <h2>🎉 Presença Confirmada!</h2>
+            <p>
+                Ficamos muito felizes em contar com você nesse dia tão especial 💍<br>
+                Se desejar, você pode nos ajudar escolhendo um presente.
+            </p>
+            <a href="presente.html" class="btn-presente">💝 Ajudar os noivos</a>
+        </div>
+
+    </div>
+</div>
+
+<script>
+const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbyazTmR_ULNCSeY1iUVg3b3Ccwae5PveMXhjy6RnIhdItRa9LRVqYGOsKag9YbowsCiZA/exec";
+
+const numPessoas = document.getElementById('numPessoas');
+const camposPessoas = document.getElementById('camposPessoas');
+const contador = document.getElementById('contador');
+const form = document.getElementById('formPresenca');
+const miniJanela = document.getElementById('miniJanela');
+
+numPessoas.addEventListener('change', () => {
+    camposPessoas.innerHTML = '';
+    const total = parseInt(numPessoas.value);
+    if(!total) return;
+
+    contador.textContent = `Você está adicionando ${total} pessoa(s)`;
+
+    for(let i=1;i<=total;i++){
+        const div = document.createElement('div');
+        div.className = 'dinamico';
+        div.innerHTML = `
+            <label>Nome da pessoa ${i}</label>
+            <input type="text" required>
+        `;
+        camposPessoas.appendChild(div);
+        setTimeout(()=>div.classList.add('show'), i*80);
+    }
+});
+
+form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const dados = {
+        email: email.value,
+        whatsapp: whatsapp.value,
+        numPessoas: parseInt(numPessoas.value),
+        nomes: Array.from(camposPessoas.querySelectorAll('input')).map(i=>i.value)
+    };
+
+    // checa duplicado rápido
+    const check = await fetch(`${URL_SCRIPT}?email=${encodeURIComponent(dados.email)}`);
+    const res = await check.json();
+
+    if(res.status === "duplicado"){
+        alert("Este email já confirmou presença.");
+        return;
+    }
+
+    // envia sem esperar
+    fetch(URL_SCRIPT, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados)
+    });
+
+    form.style.display = "none";
+    contador.style.display = "none";
+    camposPessoas.style.display = "none";
+    miniJanela.style.display = "block";
+});
+</script>
+
+</body>
+</html>

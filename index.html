@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Erika & Gabriel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family: 'Cormorant Garamond', serif;
+    background: url('fundolimpo1.png') center/cover no-repeat fixed;
+    color:#4b2c2c;
+    text-align:center;
+}
+
+.menu-topo{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    background:#7b1e1e;
+    padding:14px 0;
+    z-index:9999;
+    text-align:center;
+    font-family:'Cinzel', serif;
+    letter-spacing:2px;
+}
+
+.menu-topo a{
+    color:white;
+    text-decoration:none;
+    margin:0 30px;
+    font-size:14px;
+}
+
+.menu-topo a:hover{
+    opacity:0.8;
+}
+
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:20px;
+}
+
+/* TOPO - ESPAÇAMENTO PROPORCIONAL */
+.topo{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding-top:60px; 
+    gap:20px; 
+    position:relative;
+    min-height:50vh;
+    animation:fadeInTopo 1s ease-out;
+}
+
+/* ANIMAÇÃO DO TOPO */
+@keyframes fadeInTopo{
+    from {opacity:0; transform:translateY(-20px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+/* LOGO / CORAÇÃO - LIMPO */
+.topo img{
+    width:60%;
+    max-width:650px;
+    height:auto;
+    box-shadow:none;
+    border-radius:0;
+}
+
+/* TEXTO CONVITE */
+.convite{
+    font-size:26px;
+    opacity:0;
+    transform:translateY(10px);
+    animation:slideDownConvite 1s forwards ease-out;
+    animation-delay:0.5s;
+}
+
+/* ANIMAÇÃO CONVITE */
+@keyframes slideDownConvite{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* DATA */
+.data{
+    font-family:'Cinzel', serif;
+    font-size:38px;
+    letter-spacing:3px;
+    opacity:0;
+    transform:translateY(10px);
+    animation:fadeUp 1s forwards ease-out;
+    animation-delay:0.7s;
+}
+
+/* FRASE */
+.frase{
+    color:#9b2c2c;
+    font-size:32px;
+    opacity:0;
+    transform:translateY(10px);
+    animation:fadeUp 1s forwards ease-out;
+    animation-delay:0.9s;
+}
+
+/* ANIMAÇÃO FRASE */
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* FOTOS */
+.fotos{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+    flex-wrap:wrap;
+    margin-bottom:40px;
+}
+
+.polaroid{
+    background:white;
+    padding:12px 12px 30px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    transform:rotate(-2deg);
+    width:260px;
+    border-radius:5px;
+    transition:transform 0.3s, box-shadow 0.3s;
+}
+
+.polaroid:hover{
+    transform:scale(1.05) rotate(0deg);
+    box-shadow:0 15px 35px rgba(0,0,0,0.35);
+}
+
+.polaroid:nth-child(2){
+    transform:rotate(2deg);
+}
+
+/* FOTO PADRÃO */
+.polaroid img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+    border-radius:3px;
+}
+
+/* AJUSTE SÓ PARA A FOTO DO MEIO */
+.polaroid:nth-child(2) img{
+    object-position:center 30%; /* mostra mais do rosto */
+}
+
+/* TEXTO PRINCIPAL */
+.texto{
+    max-width:900px;
+    margin:30px auto;
+    font-size:22px;
+    line-height:1.6;
+}
+
+/* BOTÕES */
+.botoes{
+    margin-top:40px;
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    align-items:center;
+}
+
+.botao{
+    background:#1f3a1f;
+    color:white;
+    padding:14px 40px;
+    border-radius:30px;
+    text-decoration:none;
+    font-family:'Cinzel', serif;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+
+.botao:hover{
+    background:#2d5a2d;
+}
+
+/* AJUSTES CELULAR */
+@media(max-width:768px){
+
+    .topo{
+        padding-top:40px;
+        min-height:40vh;
+        gap:15px;
+    }
+
+@media(max-width:768px){
+
+    .menu-topo a{
+        margin:0 12px;
+        font-size:13px;
+    }
+
+   .topo img{
+        width:125%;
+    }
+
+    .convite{
+        font-size:24px;
+    }
+
+    .data{
+        font-size:23px;
+    }
+
+    .frase{
+        font-size:20px;
+    }
+
+    .texto{
+        font-size:15px;
+        padding:0 15px;
+    }
+
+    .fotos{
+        justify-content:center;
+        align-items:center;
+    }
+
+    .polaroid{
+        margin:0 auto;
+    }
+
+    .polaroid:nth-child(2) img{
+        object-position:center 30%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-topo">
+    <a href="index.html">INÍCIO</a>
+    <a href="presenca.html">PRESENÇA</a>
+    <a href="presente.html">PRESENTES</a>
+    <a href="local.html">LOCAL</a>
+</div>
+
+<div class="container">
+
+    <div class="topo">
+        <img src="sagrados.png" alt="Coração">
+        <div class="convite">convidam para seu casamento</div><br>
+        <div class="data">SÁBADO | 06 de JUNHO de 2026 | 10:30 Horas </div><br>
+        <div class="frase">"Nihil amori Christi praeponere" (Rb 4, 21)</div><br><br>
+    </div>
+
+    <div class="fotos">
+        <div class="polaroid"><img src="1.jpeg" alt=""></div>
+        <div class="polaroid"><img src="2.jpeg" alt=""></div>
+        <div class="polaroid"><img src="3.jpeg" alt=""></div>
+    </div>
+
+    <div class="texto">
+        Queridos amigos e familiares, criamos este site para compartilhar com vocês alguns detalhes sobre o nosso grande dia. Estamos muito felizes e temos certeza que será um momento muito especial.<br><br>
+        Não esqueça de confirmar sua presença! Nossa lista de presentes também está aqui no site ♡
+    </div>
+
+    <div class="botoes" id="presenca">
+        <a href="presenca.html" class="botao">CONFIRMAR PRESENÇA</a>
+    </div>
+
+    <div class="botoes" id="presente">
+        <a href="presente.html" class="botao">LISTA DE PRESENTES</a>
+    </div>
+
+    <div class="botoes" id="local">
+        <a href="local.html" class="botao">LOCAL</a>
+    </div>
+    
+     <div class="texto">
+       <strong> Por tratar-se de uma celebração com Santa Missa, solicitamos, por gentileza, trajes formais e adequados ao ambiente religioso.
+Assim, pedimos que as mulheres evitem roupas curtas e que os homens utilizem traje social. </strong>
+<br>Encerrada a cerimônia religiosa, desejamos prolongar a alegria deste dia na companhia de todos. A recepção ocorrerá em local com <strong>consumo de responsabilidade de cada convidado,</strong> e o cardápio será enviado antecipadamente para conhecimento dos convidados.
+    </div>
+</div>
+
+</body>
+</html>

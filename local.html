@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local do Casamento e Recepção</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html, body{
+    overflow-x:hidden;
+}
+
+body{
+    font-family: 'Cormorant Garamond', serif;
+    background: url('fundolimpo1.png') center/cover no-repeat fixed;
+    color:#4b2c2c;
+    text-align:center;
+}
+
+/* ===== MENU ===== */
+.menu-topo{
+    position:fixed;
+    top:0; left:0; width:100%;
+    background:#7b1e1e;
+    padding:14px 0;
+    z-index:9999;
+    text-align:center;
+    font-family:'Cinzel', serif;
+    letter-spacing:3px;
+}
+
+.menu-topo a{
+    color:white;
+    text-decoration:none;
+    margin:0 30px;
+    font-size:14px;
+}
+
+.menu-topo a:hover{opacity:0.8;}
+
+/* ===== CONTEÚDO ===== */
+.container{
+    max-width:1100px;
+    margin:auto;
+    padding:120px 20px 40px;
+}
+
+
+.titulo{
+    font-family:'Cinzel', serif;
+    font-size:36px;
+    font-weight:600;
+    margin-bottom:10px;
+}
+
+.endereco{
+    font-size:20px;
+    margin-bottom:20px;
+    
+}
+
+iframe{
+    width:100%;
+    height:350px;
+    border:0;
+    border-radius:8px;
+}
+
+/* ===== AJUSTE MOBILE DO MENU (SEGREDO) ===== */
+@media(max-width:768px){
+    .titulo{font-size:28px;}
+    .endereco{font-size:16px;}
+    iframe{height:300px;}
+
+    .menu-topo{
+        letter-spacing:1px;
+    }
+
+    .menu-topo a{
+        margin:0 8px;
+        font-size:12px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-topo">
+    <a href="index.html">INÍCIO</a>
+    <a href="presenca.html">PRESENÇA</a>
+    <a href="presente.html">PRESENTES</a>
+    <a href="local.html">LOCAL</a>
+</div>
+
+<div class="container">
+    <div class="titulo">Local do Casamento</div>
+
+    <div class="endereco">
+        <b>Comunidade São José<b> <br>
+        <b>Rua Jorge de Oliveira Campos, 126 - Jardim São Jorge, Valinhos - SP, 13271-060 <b><br>
+    </div>
+
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3673.065795805395!2d-47.003281521735595!3d-22.984607887003662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8cd9fd8d4838f%3A0x2b0f349a6329f1b4!2sComunidade%20Sao%20Jose%20-%20Par%C3%B3quia%20S%C3%A3o%20Crist%C3%B3v%C3%A3o!5e0!3m2!1spt-BR!2sbr!4v1770511601933!5m2!1spt-BR!2sbr" width="300" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+
+
+    <div class="titulo">Recepção</div>
+
+    <div class="endereco">
+        Endereço a confirmar <br>
+    
+    </div>
+
+</div>
+
+</body>
+</html>
