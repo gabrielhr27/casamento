@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Central dos Palpites — Erika & Gabriel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  font-family:'Cormorant Garamond',serif;
+  background:url('fundolimpo1.png') center/cover no-repeat fixed;
+  color:#4b2c2c;
+  text-align:center;
+}
+
+/* ===== MENU IGUAL AO INDEX ===== */
+.menu-topo{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  background:#7b1e1e;
+  padding:14px 0;
+  z-index:9999;
+  font-family:'Cinzel', serif;
+  letter-spacing:2px;
+}
+.menu-topo a{
+  color:white;
+  text-decoration:none;
+  margin:0 30px;
+  font-size:14px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:100px 20px 40px;
+}
+
+h1{
+  font-family:'Cinzel', serif;
+  letter-spacing:3px;
+  margin-bottom:10px;
+}
+
+.sub{
+  font-size:20px;
+  margin-bottom:50px;
+}
+
+/* ===== SEÇÕES ===== */
+.secao{margin-bottom:70px}
+
+.titulo-secao{
+  font-family:'Cinzel', serif;
+  font-size:26px;
+  margin-bottom:20px;
+}
+
+/* ===== LISTA ===== */
+.lista{display:flex;flex-direction:column;gap:12px}
+
+.item{
+  background:rgba(255,255,255,.92);
+  border-radius:14px;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  box-shadow:0 6px 18px rgba(0,0,0,.12);
+}
+
+.texto-palp{
+  text-align:left;
+  font-size:18px;
+}
+
+.valor{font-weight:bold}
+
+.botao{
+  background:#1f3a1f;
+  color:white;
+  border:none;
+  border-radius:25px;
+  padding:10px 22px;
+  font-family:'Cinzel', serif;
+  letter-spacing:1px;
+  cursor:pointer;
+  transition:.25s;
+  white-space:nowrap;
+}
+.botao:hover{background:#2d5a2d}
+
+/* ===== POPUP ===== */
+.popup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.7);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:99999;
+}
+
+.popup.ativo{display:flex}
+
+.caixa{
+  background:white;
+  padding:30px 24px;
+  border-radius:18px;
+  max-width:420px;
+  width:100%;
+}
+
+.qr{
+  width:220px;
+  height:220px;
+  margin:18px auto;
+}
+
+.chave-box{
+  background:#f4f4f4;
+  padding:12px;
+  border-radius:10px;
+  font-size:18px;
+  margin-top:6px;
+  word-break:break-all;
+}
+
+.botao-copiar{
+  margin-top:10px;
+  padding:8px 18px;
+  border:none;
+  border-radius:20px;
+  background:#1f3a1f;
+  color:white;
+  cursor:pointer;
+}
+
+.msg{
+  font-size:17px;
+  margin-top:16px;
+}
+
+.fechar{
+  margin-top:18px;
+  padding:8px 20px;
+  border:none;
+  border-radius:20px;
+  background:#7b1e1e;
+  color:white;
+  cursor:pointer;
+}
+
+/* RESPONSIVO */
+@media(max-width:768px){
+  .menu-topo a{margin:0 12px;font-size:13px}
+  .item{flex-direction:column;align-items:flex-start}
+  .botao{width:100%}
+}
+</style>
+</head>
+
+<body>
+
+<div class="menu-topo">
+  <a href="index.html">INÍCIO</a>
+  <a href="presenca.html">PRESENÇA</a>
+  <a href="presente.html">PRESENTES</a>
+   <a href="palpites.html">CENTRAL DOS PALPITES</a>
+  <a href="local.html">LOCAL</a>
+</div>
+
+<div class="container">
+
+<h1>Central dos Palpites</h1>
+<div class="sub">Opine no nosso casamento e patrocine sua ideia 😄</div>
+
+<!-- BONS -->
+<div class="secao">
+  <div class="titulo-secao"><strong>Palpite dos que nos amam</strong></div>
+  <div class="lista" id="bons"></div>
+</div>
+
+<!-- MAUS -->
+<div class="secao">
+  <div class="titulo-secao"><strong>Ouvidoria da vida alheia</strong></div>
+  <div class="lista" id="maus"></div>
+</div>
+
+</div>
+
+<!-- POPUP PIX -->
+<div class="popup" id="popup" onclick="fecharPopup(event)">
+  <div class="caixa" onclick="event.stopPropagation()">
+
+    <h2 id="tituloPopup"></h2>
+
+    <div class="qr">
+      <img src="qrcode.jpeg" alt="QR Pix" style="width:100%;height:100%">
+    </div>
+
+    <div><strong>Chave Pix:</strong></div>
+
+    <div id="chavePix" class="chave-box">
+      34999821995
+    </div>
+
+    <button class="botao-copiar" onclick="copiarPix()">Copiar chave</button>
+
+    <div class="msg">
+      💌 Gostou deste palpite?<br>
+      Ao realizar o PIX, se possível, deixe na mensagem o nome do palpite escolhido 😄<br>
+      Assim saberemos quem patrocinou essa ideia!
+    </div>
+
+    <button class="fechar" onclick="fecharPopup()">Fechar</button>
+
+  </div>
+</div>
+
+<script>
+const bons = [
+["SE PRECISAREM DE AJUDA, CONTA COMIGO.",20],
+["QUERO QUE ESSE DIA SEJA A CARA DE VOCÊS.",15],
+["NÃO SE PREOCUPEM EM AGRADAR TODO MUNDO.",25],
+["O IMPORTANTE É QUE VOCÊS ESTEJAM FELIZES.",10],
+["FAÇAM DO JEITO DE VOCÊS.",20],
+["EU ESTOU AQUI PRA O QUE PRECISAREM.",15],
+["CONFIO NA ESCOLHA DE VOCÊS.",10],
+["VAI SER LINDO.",10],
+["SE ESTIVER PESADO, ME CHAMA.",20],
+["VOCÊS NÃO PRECISAM DAR CONTA DE TUDO SOZINHOS.",25],
+["JÁ ESTÁ DANDO CERTO.",10],
+["EU TORÇO PELO AMOR DE VOCÊS.",15],
+["SE PRECISAR DESABAFAR, ESTOU AQUI.",20],
+["VOCÊS ESTÃO CONSTRUINDO ALGO BONITO.",15],
+["O MAIS IMPORTANTE JÁ EXISTE: O AMOR.",10],
+["ESSE DIA É SOBRE VOCÊS, NÃO SOBRE EXPECTATIVAS.",25]
+];
+
+const maus = [
+["PARA QUE FAZER CASAMENTO? VIAJAR É BEM MELHOR.",150],
+["TÃO NOVA(O) E JÁ VAI SE CASAR?",250],
+["AH, SE EU FOSSE VOCÊ…",250],
+["TEM CERTEZA QUE ESTÁ FAZENDO A ESCOLHA CERTA?",300],
+["ESTÃO JUNTOS POUCO TEMPO E JÁ VÃO SE CASAR…",500],
+["DEPOIS VEM O DIVÓRCIO…",400],
+["VOU SÓ PELA COMIDA.",700],
+["SE NÃO CHAMAR, VAI DAR PROBLEMA.",900],
+["VOU SÓ PELA BEBIDA.",800],
+["VOU SÓ PELA FOFOCA.",900]
+];
+
+function criar(lista, alvo){
+  const el = document.getElementById(alvo);
+  lista.forEach(([texto,valor])=>{
+    const item = document.createElement('div');
+    item.className='item';
+
+    const t = document.createElement('div');
+    t.className='texto-palp';
+    t.innerHTML = `“${texto}” — <span class="valor">R$ ${valor}</span>`;
+
+    const b = document.createElement('button');
+    b.className='botao';
+    b.textContent='Palpitar';
+    b.onclick = ()=>abrirPopup(texto,valor);
+
+    item.appendChild(t);
+    item.appendChild(b);
+    el.appendChild(item);
+  });
+}
+
+function abrirPopup(texto,valor){
+  document.getElementById('tituloPopup').innerText =
+    `“${texto}” — R$ ${valor}`;
+  document.getElementById('popup').classList.add('ativo');
+}
+
+function fecharPopup(e){
+  if(!e || e.target.id==='popup'){
+    document.getElementById('popup').classList.remove('ativo');
+  }
+}
+
+function copiarPix(){
+  const chave = document.getElementById('chavePix').innerText;
+  navigator.clipboard.writeText(chave);
+
+  const btn = event.target;
+  btn.innerText = "Copiado ✓";
+  setTimeout(()=>btn.innerText="Copiar chave",2000);
+}
+
+criar(bons,'bons');
+criar(maus,'maus');
+</script>
+
+</body>
+</html>
